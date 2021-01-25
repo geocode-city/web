@@ -1,0 +1,31 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>docs -- geocode.city</title>
+  <meta name="description" content="geocode.city -- documentation">
+  <meta name="author" content="geocode.city">
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@3/swagger-ui.css">
+
+</head>
+
+<body>
+  <div id="docs"></div>
+
+  <script src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js" charset="UTF-8"></script>
+  <script>
+    window.onload = function () {
+      const ui = SwaggerUIBundle({
+        dom_id: "#docs",
+        url: "https://api.geocode.city/swagger.json",
+
+      });
+      window.ui = ui;
+    }
+  </script>
+</body>
+
+</html>

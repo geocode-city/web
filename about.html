@@ -1,0 +1,81 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>about geocode.city</title>
+  <meta name="description" content="geocode.city -- city-only geocoding">
+  <meta name="author" content="geocode.city">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="dist/base.min.css" type="text/css" rel="stylesheet">
+  <link href="https://fonts.gstatic.com/" rel="preconnect">
+</head>
+
+<body class="markdown">
+  <main class="one-column">
+    <h1>About geocode.city</h1>
+    <p>
+      <a href="/">back to index</a>
+    </p>
+    <p>
+      This is an open source project with simple goals: fast, city-only geocoding.
+      The data comes from the 
+      <a href="http://download.geonames.org/export/dump/">geonames free data dump</a> for cities
+      with a population of 500 or more (<code>cities500.zip</code>).
+    </p>
+    <p>
+      The <a href="https://github.com/geocode-city/api">API</a> is built with Haskell and deployed on Heroku,
+      backed by Postgres and Redis. It is free to use, with the following caveats:
+    </p>
+    <ul>
+      <li>All endpoints are suitable to be called from client-side or server-side applications.</li>
+      <li>
+        <em>No guarantees</em>: I run it on cheapo dynos, it should be pretty performant, but if you want
+        greater assurances, you should consider deploying it yourself -- it should be straightforward
+        to do so on Heroku/AWS/GCS, with a modified version of the provided Dockerfile and seed scripts.
+      </li>
+      <li>You can make up to <mark>1000 requests per IP, per day.</mark> 
+        See <a href="#rate-limiting">the info on rate limiting</a></li>
+      <li>If you need to make more than 1000 requests a day, drop me a note
+      at <mark>geocode-city (at) lfborjas.com</mark> telling me about your project
+      and I can give you an API key.
+      </li>
+    </ul>
+
+    <p>If you notice anything amiss, please <a href="https://github.com/geocode-city/api/issues">file a bug report</a></p>
+
+    <h2>Rate limiting</h2>
+
+    <p>
+      To prevent abuse, all API requests are rate limited; there's two methods: client IP, and API key.
+      (you can see all of the below in action in the <a href="/docs.html">interactive documentation</a> )
+    </p><p>
+      You can include an API key either as the <code>api-key</code> querystring parameter or the
+      <code>X-Geocode-City-Api-Key</code> custom header. If you omit it, your IP will be used. If your
+      API key is invalid (or it has been revoked,) you'll receive responses with status <code>403 Forbidden</code>.
+    </p><p>
+      As mentioned above, a given IP can make up to 1000 requests/day. API keys give you up to 100,000 requests/month,
+      but we can adjust that if you state your needs -- though beyond that, you probably want to deploy your own.
+    </p><p>
+      Once you reach your limit, a status of <code>429 Too Many Requests</code> will be returned in every response
+      until the rate limit resets.
+      The following headers are included in every response, to help you with rate limiting:
+    </p>
+
+    <ul>
+      <li>
+        <code>X-RateLimit-Limit</code>: the number of requests in total you're allowed to make in a given period.
+      </li>
+      <li>
+        <code>X-RateLimit-Remaining</code>: the number of requests left in a given time period, before you start
+        getting <code>429 Too Many Requests</code> errors.
+      </li>
+      <li><code>X-RateLimit-Resets</code>A unix epoch (in decimal seconds) after which your can start making requests again.</li>
+    </ul>
+
+  </main>
+</body>
+
+</html>
