@@ -26,11 +26,12 @@
       with a population of 500 or more (<code>cities500.zip</code>).
     </p>
     <p>
-      The <a href="https://github.com/geocode-city/api">API</a> is built with Haskell and deployed on Heroku,
-      backed by Postgres and Redis. It is free to use, with the following caveats:
+      The <a href="https://github.com/geocode-city/api">API</a> is written in Haskell and deployed on Heroku,
+      backed by Postgres and Redis. It is free to use, with the following notes:
     </p>
     <ul>
-      <li>All endpoints are suitable to be called from client-side or server-side applications.</li>
+      <li>All endpoints are suitable to be called from client-side or server-side applications: appropriate CORS headers are
+        sent in every response.</li>
       <li>
         <em>No guarantees</em>: I run it on cheapo dynos, it should be pretty performant, but if you want
         greater assurances, you should consider deploying it yourself -- it should be straightforward
@@ -44,13 +45,14 @@
       </li>
     </ul>
 
-    <p>If you notice anything amiss, please <a href="https://github.com/geocode-city/api/issues">file a bug report</a></p>
+    <p>If you notice anything amiss, want to contribute a feature, or have ideas for features,
+      please <a href="https://github.com/geocode-city/api/issues">submit an issue.</a></p>
 
     <h2>Rate limiting</h2>
 
     <p>
       To prevent abuse, all API requests are rate limited; there's two methods: client IP, and API key.
-      (you can see all of the below in action in the <a href="/docs.html">interactive documentation</a> )
+      (you can see all of the below in action in the <a href="/docs.html">interactive documentation</a>.)
     </p><p>
       You can include an API key either as the <code>api-key</code> querystring parameter or the
       <code>X-Geocode-City-Api-Key</code> custom header. If you omit it, your IP will be used. If your

@@ -162,20 +162,13 @@
 }
 
 .markdown a
+{cursor: pointer; 
+    text-decoration: none; border-bottom: 1px solid black;
+}
+
+.markdown a:hover
 {
-    text-decoration: none;
-}
-
-.markdown a:before
-{display: inline; 
-
-    content: '['; color: #333;
-}
-
-.markdown a:after
-{display: inline; 
-
-    content: '](' attr(href) ')'; color: #333;
+    color: #333;
 }
 
 .markdown code
