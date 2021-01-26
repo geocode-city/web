@@ -38,9 +38,9 @@
         to do so on Heroku/AWS/GCS, with a modified version of the provided Dockerfile and seed scripts.
       </li>
       <li>You can make up to <mark>1000 requests per IP, per day.</mark> 
-        See <a href="#rate-limiting">the info on rate limiting</a></li>
+        See <a href="#rate-limiting">the info on rate limiting.</a></li>
       <li>If you need to make more than 1000 requests a day, drop me a note
-      at <mark>geocode-city (at) lfborjas.com</mark> telling me about your project
+      at <mark>api (at) geocode.city</mark> telling me about your project
       and I can give you an API key.
       </li>
     </ul>
@@ -74,7 +74,8 @@
         <code>X-RateLimit-Remaining</code>: the number of requests left in a given time period, before you start
         getting <code>429 Too Many Requests</code> errors.
       </li>
-      <li><code>X-RateLimit-Resets</code>A unix epoch (in decimal seconds) after which your can start making requests again.</li>
+      <li><code>X-RateLimit-Resets</code>: A unix epoch (in decimal seconds) after which your can start making requests again.
+      </li>
     </ul>
 
   </main>
