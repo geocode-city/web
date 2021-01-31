@@ -15,7 +15,7 @@
 </head>
 
 <body class="markdown">
-  <main class="centered">
+  <main class="one-column">
     <h1>geocode.city</h1>
     <p>
       Open source, city-only geocoding.
@@ -26,11 +26,28 @@
             href="https://github.com/geocode-city/api">Source</a> </li>
         <li>
           Autocomplete:
-          <a href="/autocomplete.html">Demo</a> |
+          <a href="/autocomplete.html">About</a> |
           <a href="https://github.com/geocode-city/autocomplete">Source</a>
         </li>
       </ul>
     </nav>
+    <article>
+      <h2>See it in action: </h2>
+      <div id="geocode-city-autocomplete" data-suggestion-count="10"></div>
+      <br>
+      <h3 id="res-title" class="hidden">You selected:</h3>
+        <pre id="results"></pre>
+        <script src="https://cdn.jsdelivr.net/gh/geocode-city/autocomplete@0.1.0.1/dist/geocode_city.min.js"></script>
+        <script>
+          let el = document.getElementById("geocode-city-autocomplete");
+          let res = document.getElementById("results");
+          let title = document.getElementById("res-title");
+          el.addEventListener("citySelected", function (e) {
+            title.classList.remove("hidden");
+            res.textContent = JSON.stringify(e.detail, undefined, 2);
+          });   
+        </script>
+    </article>
   </main>
 </body>
 

@@ -12,26 +12,7 @@
   <link href="dist/base.min.css" type="text/css" rel="stylesheet">
   <link href="https://fonts.gstatic.com/" rel="preconnect">
   <style>
-    .geocode-city__autocomplete-input {
-      width: 50vw
-    }
 
-    .geocode-city__autocomplete-container {
-      border: 1px dotted gray;
-      border-radius: 1px;
-    }
-
-    .geocode-city__autocomplete-item-highlighted {
-      background: lightblue;
-    }
-
-    .geocode-city__city-location {
-      color: gray;
-    }
-
-    .hidden {
-      visibility: hidden;
-    }
   </style>
 </head>
 
@@ -42,44 +23,30 @@
       <a href="/">back to index</a>
     </p>
     <p>
-      For convenience, we provide a simple, unstyled, "drop-it-in-your-page" snippet. Check out this demo:
+      For convenience, we provide a simple, unstyled, "drop-it-in-your-page" snippet. We emit a few custom events
+      and all markup has CSS classes, so you can customize both the look and behavior as you wish.
     </p>
     <article>
-      <div id="geocode-city-autocomplete"></div>
-      <h2 id="res-title" class="hidden">You selected:</h3>
-        <pre id="results"></pre>
-        <script src="https://cdn.jsdelivr.net/gh/geocode-city/autocomplete@0.0.1.1/dist/geocode_city.min.js"></script>
-        <script>
-          let el = document.getElementById("geocode-city-autocomplete");
-          let res = document.getElementById("results");
-          let title = document.getElementById("res-title");
-          el.addEventListener("citySelected", function (e) {
-            title.classList.remove("hidden");
-            res.textContent = JSON.stringify(e.detail, undefined, 2);
-          });   
-        </script>
-    </article>
-    <article>
       <h2>Usage</h2>
+      <mark>Note: this is meant to be a quick reference; check out the <a href="https://github.com/geocode-city/autocomplete">source code</a> for the most up to date technical documentation.</mark>
       <p>
-        You just need to include the snippet, and provide an element with id <code>geocode-city-autocomplete</code>. You
-        can subscribe
-        to the <code>citySelected</code> and <code>lookupFailed</code> events for custom handling of selections and
-        errors, respectively. For example, in this page, we subscribe to
-        `citySelected`
-        to show you the full <code>city</code> object of each city you select.
+        For the most basic use, you just need to include the snippet, and provide an element with id <code>geocode-city-autocomplete</code>. Ideally, it's a container like a `div`.
       </p>
-      <p>You can inspect the source of this page to check it out, but here's a copy/paste for your quick reference:</p>
+      <p>You can inspect the source of <a href="/">the index page</a> to check out some custom usage, but here's a copy/paste for your quick reference:</p>
       <!-- HTML generated using hilite.me -->
       <div
         style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
         <pre style="margin: 0; line-height: 125%">&lt;div id=<span style="color: #a31515">&quot;geocode-city-autocomplete&quot;</span>&gt;&lt;/div&gt;
+
+          
 &lt;h2 id=<span style="color: #a31515">&quot;res-title&quot;</span> class=<span style="color: #a31515">&quot;hidden&quot;</span>&gt;You selected:&lt;/h3&gt;
 &lt;pre id=<span style="color: #a31515">&quot;results&quot;</span>&gt;
 &lt;/pre&gt;
 &lt;script src=<span
-  style="color: #a31515">&quot;https://cdn.jsdelivr.net/gh/geocode-city/autocomplete@0.0.1.1/dist/geocode_city.min.js&quot;</span>&gt;&lt;/script&gt;
+  style="color: #a31515">&quot;https://cdn.jsdelivr.net/gh/geocode-city/autocomplete@0.1.0.1/dist/geocode_city.min.js&quot;</span>&gt;&lt;/script&gt;
 &lt;script&gt;
+
+
 <span style="color: #0000ff">let</span> el = document.getElementById(<span style="color: #a31515">&quot;geocode-city-autocomplete&quot;</span>);
 <span style="color: #0000ff">let</span> res = document.getElementById(<span style="color: #a31515">&quot;results&quot;</span>);
 <span style="color: #0000ff">let</span> title = document.getElementById(<span style="color: #a31515">&quot;res-title&quot;</span>);
@@ -90,9 +57,43 @@ el.addEventListener(<span style="color: #a31515">&quot;citySelected&quot;</span>
 &lt;/script&gt;
 </pre>
       </div>
-
       <br>
-      <h2>Styling</h2>
+
+      <h3>Options</h3>
+      <p>All of the below options are optional, and passed as attributes of the element you identify as <code>geocode-city-autocomplete</code></p>
+      <dl>
+        <dt>data-api-key</dt>
+        <dd>Your api key. If not provided, the user's browser will be used for rate limiting.</dd>
+
+        <dt>data-suggestion-count</dt>
+        <dd>The number of suggestions to show, defaults to 5.</dd>
+
+        <dt>data-input-name</dt>
+        <dd>The <code>name</code> attribute for the text input.</dd>
+
+        <dt>data-input-class</dt>
+        <dd>The <code>class</code> attribute for the text input.</dd>
+      </dl>
+
+      <h3>Events</h3>
+      <p>All of the below are custom events emitted in the element you use the snippet on. You can use <code>addEventListener</code> to listen for them, and any data
+      included is sent through the <code>event.detail</code> property (read more about <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events">custom events on MDN</a>.)</p>
+
+      <dl>
+        <dt>citySelected</dt>
+        <dd>When a city is selected from the dropdown. Includes the full <code>city</code> object.</dd>
+
+        <dt>citiesFound</dt>
+        <dd>An array of cities, if any results are found.</dd>
+
+        <dt>noCitiesFound</dt>
+        <dd>When no results are found, no data is sent.</dd>
+
+        <dt>lookupError</dt>
+        <dd>In the event of a client or server error; the error message is sent.</dd>
+      </dl>
+
+      <h3>Styling</h3>
       <p>TODO. In the meantime, check out the <a href="https://github.com/geocode-city/autocomplete">source</a>: all markup
         that the snippet generates has the <code>geocode-city__</code> prefix.</p>
     </article>
